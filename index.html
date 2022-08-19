@@ -12,7 +12,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/main.css" />
-        <link rel="stylesheet" href="assets/css/tooltips.css" />
         <script defer type="module" src="assets/js/main.js"></script>
     </head>
     <body>
@@ -21,6 +20,32 @@
             <h1>Ian Marshall</h1>
             <h2>whiteboard application</h2>
         </header>
-        <nav></nav>
+        <nav>
+            <button id="eraseall">Erase All</button>
+            <button id="download">Download</button>
+            <fieldset>
+                <legend>
+                    <input id="pen_tool" type="radio" name="tool" value="pen" data-key="p" checked />
+                    <label for="pen_tool">Pen (<kbd>P</kbd>)</label>
+                </legend>
+                <input type="color" />
+                <input type="number" value="2" />
+                <section>
+                    <button id="color-red" data-key="r" data-color="#ff0000"><kbd>R</kbd></button>
+                    <button id="color-green" data-key="g" data-color="#00ff00"><kbd>G</kbd></button>
+                    <button id="color-blue" data-key="b" data-color="#0000ff"><kbd>B</kbd></button>
+                    <button id="color-yellow" data-key="y" data-color="#ffff00"><kbd>Y</kbd></button>
+                    <button id="color-black" data-key="k" data-color="#000000"><kbd>K</kbd></button>
+                </section>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <input id="eraser_tool" type="radio" name="tool" value="eraser" data-key="e" />
+                    <label for="eraser_tool">Eraser (<kbd>E</kbd>)</label>
+                </legend>
+                <input type="number" value="25" />
+                <p>swap tools (<kbd>x</kbd>)</p>
+            </fieldset>
+        </nav>
     </body>
 </html>
