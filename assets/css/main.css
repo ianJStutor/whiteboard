@@ -1,0 +1,24 @@
+body {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+h1, h2 {
+    margin: 0;
+    font-family: 'Rubik Dirt', cursive;
+    font-weight: 400;
+    text-align: center;
+    color: var(--light);
+    cursor: default;
+    text-shadow: -1px -1px 2px var(--highlight),
+                 -1px  1px 2px var(--highlight),
+                  1px -1px 2px var(--highlight),
+                  1px  1px 2px var(--highlight);
+}
+
+h1 {
+    font-size: min(100px, 20vw);
+}
+h2 {
+    font-size: min(40px, 18vw);
+}
