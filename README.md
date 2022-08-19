@@ -6,7 +6,7 @@
 
 ### Live Site
 
-> [https://ianjstutor.github.io/interactive-background-animations/](https://ianjstutor.github.io/interactive-background-animations/)
+> [https://ianjstutor.github.io/whiteboard/](https://ianjstutor.github.io/whiteboard/)
 
 ### Description
 
