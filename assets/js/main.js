@@ -53,9 +53,18 @@ uiCanvas.addEventListener("mouseup", stopDraw);
 uiCanvas.addEventListener("touchend", stopDraw);
 uiCanvas.addEventListener("pointerup", stopDraw);
 
-uiCanvas.addEventListener("mouseleave", stopDraw);
-uiCanvas.addEventListener("touchleave", stopDraw);
-uiCanvas.addEventListener("pointerleave", stopDraw);
+uiCanvas.addEventListener("mouseleave", (e) => {
+    eraseUiCanvas();
+    stopDraw(e);
+});
+uiCanvas.addEventListener("touchleave", (e) => {
+    eraseUiCanvas();
+    stopDraw(e);
+});
+uiCanvas.addEventListener("pointerleave", (e) => {
+    eraseUiCanvas();
+    stopDraw(e);
+});
 
 function moveUiCursor(e) {
     if (!e) {
@@ -65,14 +74,18 @@ function moveUiCursor(e) {
     const x = e.clientX ?? e.touches?.[0].clientX ?? e.x;
     const y = e.clientY ?? e.touches?.[0].clientY ?? e.y;
     const radius = uiCanvas.classList.contains("eraser") ? Number(eraserSize.value) : Number(penSize.value);
-    const { width, height } = uiCanvas;
-    uiCtx.clearRect(0, 0, width, height);
+    eraseUiCanvas();
     uiCtx.fillStyle = uiColor;
     uiCtx.beginPath();
     uiCtx.arc(x, y, radius, 0, Math.PI*2);
     uiCtx.fill();
     if (drawing) draw(x, y);
     prevPoint = {x, y};
+}
+
+function eraseUiCanvas() {
+    const { width, height } = uiCanvas;
+    uiCtx.clearRect(0, 0, width, height);
 }
 
 //drawing
