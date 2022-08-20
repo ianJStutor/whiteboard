@@ -3,11 +3,23 @@ body {
     font-family: sans-serif;
 }
 
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: url("../img/cursor/paint-brush-icon.png"), default;
+}
+
+canvas.eraser {
+    cursor: url("../img/cursor/eraser-icon.png"), default;
+}
+
 header {
     position: absolute;
     top: calc(50% - 75px);
     left: 50%;
     transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
 nav {
