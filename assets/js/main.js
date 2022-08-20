@@ -1,5 +1,6 @@
 //settings
 const uiColor = "rgba(255, 255, 0, 0.25)";
+const bgColor = "white";
 
 //DOM elements
 const [drawingCanvas, uiCanvas] = document.querySelectorAll("canvas");
@@ -44,6 +45,18 @@ uiCanvas.addEventListener("mousemove", moveUiCursor);
 uiCanvas.addEventListener("touchmove", moveUiCursor);
 uiCanvas.addEventListener("pointermove", moveUiCursor);
 
+uiCanvas.addEventListener("mousedown", startDraw);
+uiCanvas.addEventListener("touchstart", startDraw);
+uiCanvas.addEventListener("pointerdown", startDraw);
+
+uiCanvas.addEventListener("mouseup", stopDraw);
+uiCanvas.addEventListener("touchend", stopDraw);
+uiCanvas.addEventListener("pointerup", stopDraw);
+
+uiCanvas.addEventListener("mouseleave", stopDraw);
+uiCanvas.addEventListener("touchleave", stopDraw);
+uiCanvas.addEventListener("pointerleave", stopDraw);
+
 function moveUiCursor(e) {
     if (!e) {
         if (!prevPoint) return;
@@ -62,10 +75,40 @@ function moveUiCursor(e) {
     prevPoint = {x, y};
 }
 
+//drawing
+function startDraw(e) {
+    drawing = true;
+    moveUiCursor(e);
+}
+function stopDraw(e) {
+    drawing = false;
+    prevPoint = null;
+}
+function draw(x, y) {
+    const { x: prevX, y: prevY } = prevPoint ?? { prevX: x, prevY: y };
+    var c, s;
+    if (uiCanvas.classList.contains("eraser")) {
+        c = bgColor;
+        s = Number(eraserSize.value)
+    }
+    else {
+        c = color.value;
+        s = Number(penSize.value);
+    }
+    drawingCtx.lineCap = "round";
+    drawingCtx.lineWidth = s * 2;
+    drawingCtx.strokeStyle = c;
+    drawingCtx.beginPath();
+    drawingCtx.moveTo(prevX, prevY);
+    drawingCtx.lineTo(x, y);
+    drawingCtx.stroke();
+}
+
 //nav buttons
 eraseButton.addEventListener("click", () => {
     const { width, height } = drawingCanvas;
-    drawingCtx.clearRect(0, 0, width, height);
+    drawingCtx.fillStyle = bgColor;
+    drawingCtx.fillRect(0, 0, width, height);
 });
 downloadButton.addEventListener("click", () => {
     const link = document.createElement("a");
@@ -73,10 +116,11 @@ downloadButton.addEventListener("click", () => {
     link.href = drawingCanvas.toDataURL();
     link.click();
 });
+eraseButton.click(); //on load fill with bgColor
 
 //color changing
 document.querySelectorAll("[id|='color']").forEach(b => {
-    b.addEventListener("click", () => color.value=b.dataset.color);
+    b.addEventListener("click", () => color.value = b.dataset.color);
 });
 
 //keyboard shortcuts
