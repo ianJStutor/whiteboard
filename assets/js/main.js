@@ -4,7 +4,7 @@ const header = document.querySelector("header");
 const nav = document.querySelector("nav");
 const [color, penSize, eraserSize] = document.querySelectorAll("fieldset > input");
 
-//canvases
+//canvases & resizing
 const drawingCtx = drawingCanvas.getContext("2d");
 const uiCtx = uiCanvas.getContext("2d");
 setCanvasSize();
@@ -16,11 +16,19 @@ window.addEventListener("resize", setCanvasSize);
 
 //cursor
 document.querySelectorAll("[name='tool']").forEach(t => {
-    t.addEventListener("change", () => canvas.classList.toggle("eraser"));
+    t.addEventListener("change", () => uiCanvas.classList.toggle("eraser"));
 });
 
 //remove header
-document.addEventListener("click", () => header.classList.add("hide"), {once: true});
+document.addEventListener("mousedown", removeHeader);
+document.addEventListener("touchstart", removeHeader);
+document.addEventListener("pointerdown", removeHeader);
+function removeHeader() {
+    header.classList.add("hide");
+    document.removeEventListener("mousedown", removeHeader);
+    document.removeEventListener("touchstart", removeHeader);
+    document.removeEventListener("pointerdown", removeHeader);
+}
 
 //color changing
 document.querySelectorAll("[id|='color']").forEach(b => {
@@ -35,7 +43,21 @@ function handleKeyup({ key }) {
     if (k === "x") { //swap tools
         return document.querySelector("[type='radio']:not(:checked)").click();
     }
+    if (["=", "+"].includes(k)) {
+        const eraserActive = uiCanvas.classList.contains("eraser");
+        if (eraserActive) return changeToolSize(eraserSize, 1);
+        return changeToolSize(penSize, 1);
+    }
+    if (["-", "_"].includes(k)) {
+        const eraserActive = uiCanvas.classList.contains("eraser");
+        if (eraserActive) return changeToolSize(eraserSize, -1);
+        return changeToolSize(penSize, -1);
+    }
     const el = document.querySelector(`[data-key="${k}"]`);
     if (!el) return;
     el.click();
+}
+
+function changeToolSize(tool, deltaValue) {
+    tool.value = Math.max(1, Number(tool.value) + deltaValue);
 }
