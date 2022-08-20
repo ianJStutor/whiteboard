@@ -7,11 +7,11 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
-    cursor: url("../img/cursor/paint-brush-icon.png"), default;
+    cursor: url("../img/cursor/paint-brush-icon.png") 0 16, default;
 }
 
 canvas.eraser {
-    cursor: url("../img/cursor/eraser-icon.png"), default;
+    cursor: url("../img/cursor/eraser-icon.png") 0 16, default;
 }
 
 header {
