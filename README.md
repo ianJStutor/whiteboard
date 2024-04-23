@@ -4,7 +4,7 @@
 
 ## Description
 
-A relatively simple whiteboard application that interacts with mouse, touches, and pointer devices. Keyboard shortcuts change colors/pen width quickly or switch tools. When you're done, you can easily download your masterpiece as a png.
+A relatively simple whiteboard application that interacts with mouse, touches, and pointer devices. Keyboard shortcuts change colors/pen width quickly or switch tools. When you're done, you can download your masterpiece as a png.
 
 This is built with vanilla JavaScript, my favorite flavor!
 
